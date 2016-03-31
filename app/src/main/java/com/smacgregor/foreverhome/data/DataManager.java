@@ -1,5 +1,13 @@
 package com.smacgregor.foreverhome.data;
 
+import com.smacgregor.foreverhome.data.local.DatabaseHelper;
+import com.smacgregor.foreverhome.data.local.PreferencesHelper;
+import com.smacgregor.foreverhome.data.model.Breed;
+import com.smacgregor.foreverhome.data.model.Ribot;
+import com.smacgregor.foreverhome.data.remote.PetFinderService;
+import com.smacgregor.foreverhome.data.remote.RibotsService;
+import com.smacgregor.foreverhome.util.EventPosterHelper;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,23 +16,20 @@ import javax.inject.Singleton;
 import rx.Observable;
 import rx.functions.Action0;
 import rx.functions.Func1;
-import com.smacgregor.foreverhome.data.local.DatabaseHelper;
-import com.smacgregor.foreverhome.data.local.PreferencesHelper;
-import com.smacgregor.foreverhome.data.model.Ribot;
-import com.smacgregor.foreverhome.data.remote.RibotsService;
-import com.smacgregor.foreverhome.util.EventPosterHelper;
 
 @Singleton
 public class DataManager {
 
+    private final PetFinderService mPetFinderService;
     private final RibotsService mRibotsService;
     private final DatabaseHelper mDatabaseHelper;
     private final PreferencesHelper mPreferencesHelper;
     private final EventPosterHelper mEventPoster;
 
     @Inject
-    public DataManager(RibotsService ribotsService, PreferencesHelper preferencesHelper,
+    public DataManager(PetFinderService petFinderService, RibotsService ribotsService, PreferencesHelper preferencesHelper,
                        DatabaseHelper databaseHelper, EventPosterHelper eventPosterHelper) {
+        mPetFinderService = petFinderService;
         mRibotsService = ribotsService;
         mPreferencesHelper = preferencesHelper;
         mDatabaseHelper = databaseHelper;
@@ -33,6 +38,10 @@ public class DataManager {
 
     public PreferencesHelper getPreferencesHelper() {
         return mPreferencesHelper;
+    }
+
+    public Observable<List<Breed>> syncBreeds() {
+        return mPetFinderService.getBreedList("dog");
     }
 
     public Observable<Ribot> syncRibots() {

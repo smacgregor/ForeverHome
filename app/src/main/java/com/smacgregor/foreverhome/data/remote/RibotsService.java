@@ -2,15 +2,15 @@ package com.smacgregor.foreverhome.data.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.smacgregor.foreverhome.data.model.Ribot;
 
 import java.util.List;
 
-import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
-import retrofit2.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import rx.Observable;
-import com.smacgregor.foreverhome.data.model.Ribot;
 
 public interface RibotsService {
 

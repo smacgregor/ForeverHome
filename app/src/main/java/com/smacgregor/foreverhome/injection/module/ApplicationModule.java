@@ -3,14 +3,15 @@ package com.smacgregor.foreverhome.injection.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.smacgregor.foreverhome.data.remote.PetFinderService;
+import com.smacgregor.foreverhome.data.remote.RibotsService;
+import com.smacgregor.foreverhome.injection.ApplicationContext;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import com.smacgregor.foreverhome.data.remote.RibotsService;
-import com.smacgregor.foreverhome.injection.ApplicationContext;
 
 /**
  * Provide application-level dependencies.
@@ -46,4 +47,9 @@ public class ApplicationModule {
         return RibotsService.Creator.newRibotsService();
     }
 
+    @Provides
+    @Singleton
+    PetFinderService providePetFinderService() {
+        return PetFinderService.Creator.newPetFinderService();
+    }
 }

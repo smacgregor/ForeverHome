@@ -7,16 +7,19 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.IBinder;
 
+import com.smacgregor.foreverhome.ForeverHomeApplication;
+import com.smacgregor.foreverhome.data.model.Breed;
+import com.smacgregor.foreverhome.util.AndroidComponentUtil;
+import com.smacgregor.foreverhome.util.NetworkUtil;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
 import rx.Observer;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
-import com.smacgregor.foreverhome.BoilerplateApplication;
-import com.smacgregor.foreverhome.data.model.Ribot;
-import com.smacgregor.foreverhome.util.AndroidComponentUtil;
-import com.smacgregor.foreverhome.util.NetworkUtil;
 
 public class SyncService extends Service {
 
@@ -34,7 +37,7 @@ public class SyncService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        BoilerplateApplication.get(this).getComponent().inject(this);
+        ForeverHomeApplication.get(this).getComponent().inject(this);
     }
 
     @Override
@@ -48,10 +51,13 @@ public class SyncService extends Service {
             return START_NOT_STICKY;
         }
 
-        if (mSubscription != null && !mSubscription.isUnsubscribed()) mSubscription.unsubscribe();
-        mSubscription = mDataManager.syncRibots()
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Ribot>() {
+        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
+        }
+
+        mSubscription = mDataManager.syncBreeds().
+                subscribeOn(Schedulers.io()).
+                subscribe(new Observer<List<Breed>>() {
                     @Override
                     public void onCompleted() {
                         Timber.i("Synced successfully!");
@@ -66,7 +72,8 @@ public class SyncService extends Service {
                     }
 
                     @Override
-                    public void onNext(Ribot ribot) {
+                    public void onNext(List<Breed> breeds) {
+
                     }
                 });
 

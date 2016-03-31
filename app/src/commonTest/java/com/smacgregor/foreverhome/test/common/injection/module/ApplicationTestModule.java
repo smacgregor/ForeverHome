@@ -3,15 +3,16 @@ package com.smacgregor.foreverhome.test.common.injection.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.smacgregor.foreverhome.data.DataManager;
+import com.smacgregor.foreverhome.data.remote.PetFinderService;
+import com.smacgregor.foreverhome.data.remote.RibotsService;
+import com.smacgregor.foreverhome.injection.ApplicationContext;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import com.smacgregor.foreverhome.data.DataManager;
-import com.smacgregor.foreverhome.data.remote.RibotsService;
-import com.smacgregor.foreverhome.injection.ApplicationContext;
 
 import static org.mockito.Mockito.mock;
 
@@ -58,5 +59,9 @@ public class ApplicationTestModule {
     RibotsService provideRibotsService() {
         return mock(RibotsService.class);
     }
+
+    @Provides
+    @Singleton
+    PetFinderService providePetFinderService() { return mock(PetFinderService.class); }
 
 }

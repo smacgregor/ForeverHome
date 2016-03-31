@@ -3,7 +3,7 @@ package com.smacgregor.foreverhome.ui.base;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.smacgregor.foreverhome.BoilerplateApplication;
+import com.smacgregor.foreverhome.ForeverHomeApplication;
 import com.smacgregor.foreverhome.injection.component.ActivityComponent;
 import com.smacgregor.foreverhome.injection.component.DaggerActivityComponent;
 import com.smacgregor.foreverhome.injection.module.ActivityModule;
@@ -21,7 +21,7 @@ public class BaseActivity extends AppCompatActivity {
         if (mActivityComponent == null) {
             mActivityComponent = DaggerActivityComponent.builder()
                     .activityModule(new ActivityModule(this))
-                    .applicationComponent(BoilerplateApplication.get(this).getComponent())
+                    .applicationComponent(ForeverHomeApplication.get(this).getComponent())
                     .build();
         }
         return mActivityComponent;
