@@ -3,6 +3,7 @@ package com.smacgregor.foreverhome.data;
 import com.smacgregor.foreverhome.data.local.DatabaseHelper;
 import com.smacgregor.foreverhome.data.local.PreferencesHelper;
 import com.smacgregor.foreverhome.data.model.Breed;
+import com.smacgregor.foreverhome.data.model.Pet;
 import com.smacgregor.foreverhome.data.model.Ribot;
 import com.smacgregor.foreverhome.data.remote.PetFinderService;
 import com.smacgregor.foreverhome.data.remote.RibotsService;
@@ -44,6 +45,10 @@ public class DataManager {
         return mPetFinderService.getBreedList("dog");
     }
 
+    public Observable<List<Pet>> findPets() {
+        return mPetFinderService.searchForPets("94116", null, "dog");
+    }
+
     public Observable<Ribot> syncRibots() {
         return mRibotsService.getRibots()
                 .concatMap(new Func1<List<Ribot>, Observable<Ribot>>() {
@@ -57,7 +62,6 @@ public class DataManager {
     public Observable<List<Ribot>> getRibots() {
         return mDatabaseHelper.getRibots().distinct();
     }
-
 
     /// Helper method to post events from doOnCompleted.
     private Action0 postEventAction(final Object event) {

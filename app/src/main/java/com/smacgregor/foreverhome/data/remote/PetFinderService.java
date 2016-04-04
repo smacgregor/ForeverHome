@@ -4,6 +4,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.smacgregor.foreverhome.data.model.Breed;
+import com.smacgregor.foreverhome.data.model.Pet;
 
 import java.io.IOException;
 import java.lang.reflect.Modifier;
@@ -31,11 +32,18 @@ public interface PetFinderService {
     @GET("breed.list")
     Observable<List<Breed>> getBreedList(@Query("animal") String species);
 
+    @GET("pet.find")
+    Observable<List<Pet>> searchForPets(@Query("location") String postalCode,
+                                        @Query("offset") Integer page,
+                                        @Query("animal") String species);
+
     class Creator {
         public static PetFinderService newPetFinderService() {
             Gson gson = new GsonBuilder().
                     setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).
                     registerTypeAdapterFactory(new BreedTypeAdapterFactory()).
+                    registerTypeAdapterFactory(new PetTypeAdapterFactory()).
+                    registerTypeAdapterFactory(new StringTypeAdapterFactory()).
                     excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC).
                     create();
             Retrofit retrofit = new Retrofit.Builder().

@@ -1,5 +1,6 @@
 package com.smacgregor.foreverhome.test.common;
 
+import com.smacgregor.foreverhome.data.model.Breed;
 import com.smacgregor.foreverhome.data.model.Name;
 import com.smacgregor.foreverhome.data.model.Profile;
 import com.smacgregor.foreverhome.data.model.Ribot;
@@ -17,6 +18,18 @@ public class TestDataFactory {
 
     public static String randomUuid() {
         return UUID.randomUUID().toString();
+    }
+
+    public static Breed makeBreed(String uniqueSuffix) {
+        return new Breed("Dog" + uniqueSuffix);
+    }
+
+    public static List<Breed> makeListBreeds(int number) {
+        List<Breed> breeds = new ArrayList<>(number);
+        for (int index = 0; index < number; index++) {
+            breeds.add(makeBreed(String.valueOf(index)));
+        }
+        return breeds;
     }
 
     public static Ribot makeRibot(String uniqueSuffix) {

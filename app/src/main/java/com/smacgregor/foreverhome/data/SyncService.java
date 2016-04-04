@@ -8,7 +8,7 @@ import android.net.ConnectivityManager;
 import android.os.IBinder;
 
 import com.smacgregor.foreverhome.ForeverHomeApplication;
-import com.smacgregor.foreverhome.data.model.Breed;
+import com.smacgregor.foreverhome.data.model.Pet;
 import com.smacgregor.foreverhome.util.AndroidComponentUtil;
 import com.smacgregor.foreverhome.util.NetworkUtil;
 
@@ -54,28 +54,25 @@ public class SyncService extends Service {
         if (mSubscription != null && !mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();
         }
-
-        mSubscription = mDataManager.syncBreeds().
+        mSubscription = mDataManager.findPets().
                 subscribeOn(Schedulers.io()).
-                subscribe(new Observer<List<Breed>>() {
+                subscribe(new Observer<List<Pet>>() {
                     @Override
                     public void onCompleted() {
-                        Timber.i("Synced successfully!");
-                        stopSelf(startId);
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.w(e, "Error syncing.");
-                        stopSelf(startId);
 
                     }
 
                     @Override
-                    public void onNext(List<Breed> breeds) {
+                    public void onNext(List<Pet> pets) {
 
                     }
                 });
+
 
         return START_STICKY;
     }
