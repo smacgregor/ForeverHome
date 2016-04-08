@@ -13,6 +13,8 @@ import java.io.IOException;
 
 /**
  * Created by smacgregor on 4/3/16.
+ * Every string in the petfinder JSON responses has a key name of "$t". This string type adapter
+ * deals with the wierd character for all strings..
  */
 public class StringTypeAdapterFactory implements TypeAdapterFactory {
 

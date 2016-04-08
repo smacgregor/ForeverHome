@@ -8,6 +8,7 @@ import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.smacgregor.foreverhome.data.model.Breed;
 import com.smacgregor.foreverhome.data.model.Pet;
 
 import java.io.IOException;
@@ -17,8 +18,9 @@ import java.util.List;
 
 /**
  * Created by smacgregor on 4/3/16.
+ * Every petfinder API response is wrapped in a petfinder tag. This adapter unwraps that tag.
  */
-public class PetTypeAdapterFactory implements TypeAdapterFactory {
+public class PetFinderTypeAdapterFactory implements TypeAdapterFactory {
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
 
@@ -27,7 +29,8 @@ public class PetTypeAdapterFactory implements TypeAdapterFactory {
         }
 
         Type elementType = ((ParameterizedType) type.getType()).getActualTypeArguments()[0];
-        if (!Pet.class.isAssignableFrom(TypeToken.get(elementType).getRawType())) {
+        if (!(Pet.class.isAssignableFrom(TypeToken.get(elementType).getRawType()) ||
+                Breed.class.isAssignableFrom(TypeToken.get(elementType).getRawType()))) {
             return null;
         }
 
@@ -43,16 +46,13 @@ public class PetTypeAdapterFactory implements TypeAdapterFactory {
             @Override
             public T read(JsonReader in) throws IOException {
                 JsonElement jsonElement = elementTypeAdapter.read(in);
-                // pets (Object) --> pet (Array) --> pet model (Object)
+                // petfinder
                 if (jsonElement.isJsonObject()) {
-                    JsonObject petsObject = jsonElement.getAsJsonObject();
-                        if (petsObject.has("pets") && petsObject.get("pets").isJsonObject()) {
-                            petsObject = petsObject.getAsJsonObject("pets");
-                            if (petsObject.has("pet") && petsObject.get("pet").isJsonArray()) {
-                                jsonElement = petsObject.get("pet");
-                            }
-                        }
+                    JsonObject jsonObject = jsonElement.getAsJsonObject();
+                    if (jsonObject.has("petfinder") && jsonObject.get("petfinder").isJsonObject()) {
+                        jsonElement = jsonObject.getAsJsonObject("petfinder");
                     }
+                }
                 return delegate.fromJsonTree(jsonElement);
             }
         };

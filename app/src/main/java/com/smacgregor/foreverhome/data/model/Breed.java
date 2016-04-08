@@ -1,28 +1,22 @@
 package com.smacgregor.foreverhome.data.model;
 
+import com.google.auto.value.AutoValue;
+import com.google.gson.TypeAdapterFactory;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by smacgregor on 3/27/16.
  */
+@AutoValue
+public abstract class Breed {
 
-public class Breed {
-
-    @SerializedName("$t") String mName;
-
-    public Breed() {}
-
-    public Breed(String name) {
-        mName = name;
+    public static Breed create(String name) {
+        return new AutoValue_Breed(name);
     }
 
-    public String getName() {
-        return mName;
+    public static TypeAdapterFactory typeAdapterFactory() {
+        return AutoValue_Breed.typeAdapterFactory();
     }
 
-    @Override
-    public String toString() {
-        return getName();
-    }
-
+    @SerializedName("$t") public abstract String name();
 }

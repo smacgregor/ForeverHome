@@ -40,10 +40,13 @@ public interface PetFinderService {
     class Creator {
         public static PetFinderService newPetFinderService() {
             Gson gson = new GsonBuilder().
-                    setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).
-                    registerTypeAdapterFactory(new BreedTypeAdapterFactory()).
-                    registerTypeAdapterFactory(new PetTypeAdapterFactory()).
                     registerTypeAdapterFactory(new StringTypeAdapterFactory()).
+                    registerTypeAdapterFactory(Breed.typeAdapterFactory()).
+                    registerTypeAdapterFactory(Pet.typeAdapterFactory()).
+                    registerTypeAdapterFactory(new BreedsTypeAdapterFactory()).
+                    registerTypeAdapterFactory(new PetTypeAdapterFactory()).
+                    registerTypeAdapterFactory(new PetFinderTypeAdapterFactory()).
+                    setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).
                     excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC).
                     create();
             Retrofit retrofit = new Retrofit.Builder().

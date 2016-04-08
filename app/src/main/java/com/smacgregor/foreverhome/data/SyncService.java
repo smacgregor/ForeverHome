@@ -57,21 +57,41 @@ public class SyncService extends Service {
         mSubscription = mDataManager.findPets().
                 subscribeOn(Schedulers.io()).
                 subscribe(new Observer<List<Pet>>() {
-                    @Override
-                    public void onCompleted() {
+                              @Override
+                              public void onCompleted() {
 
-                    }
+                              }
 
-                    @Override
-                    public void onError(Throwable e) {
+                              @Override
+                              public void onError(Throwable e) {
+                                  Timber.e(e, "error");
+                              }
 
-                    }
+                              @Override
+                              public void onNext(List<Pet> pets) {
 
-                    @Override
-                    public void onNext(List<Pet> pets) {
+                              }
+                          });
 
-                    }
-                });
+
+                        /*mSubscription = mDataManager.syncBreeds().
+                                subscribeOn(Schedulers.io()).
+                                subscribe(new Observer<List<Breed>>() {
+                                    @Override
+                                    public void onCompleted() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(List<Breed> breeds) {
+
+                                    }
+                                });*/
 
 
         return START_STICKY;
