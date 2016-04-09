@@ -2,6 +2,7 @@ package com.smacgregor.foreverhome.data.model;
 
 import com.google.auto.value.AutoValue;
 import com.google.gson.TypeAdapterFactory;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -12,8 +13,8 @@ import java.util.List;
 @AutoValue
 public abstract class Pet {
 
-    public static Pet create(String name, String description, List<Breed> breeds) {
-        return new AutoValue_Pet(name, description, breeds);
+    public static Pet create(String name, String description, Age petAge, Size size, Gender gender, Species species, long serverId, List<Breed> breeds) {
+        return new AutoValue_Pet(name, description, petAge, size, gender, species, serverId, breeds);
     }
 
     public static TypeAdapterFactory typeAdapterFactory() {
@@ -22,5 +23,10 @@ public abstract class Pet {
 
     public abstract String name();
     public abstract String description();
+    public abstract Age age();
+    public abstract Size size();
+    @SerializedName("sex") public abstract Gender gender();
+    @SerializedName("animal") public abstract Species species();
+    @SerializedName("id") public abstract long serverId();
     public abstract List<Breed> breeds();
 }
