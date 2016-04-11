@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.smacgregor.foreverhome.data.model.Breed;
 import com.smacgregor.foreverhome.data.model.Pet;
 import com.smacgregor.foreverhome.data.model.Media;
+import com.smacgregor.foreverhome.data.model.Shelter;
 
 import java.io.IOException;
 import java.lang.reflect.Modifier;
@@ -45,6 +46,7 @@ public interface PetFinderService {
                     registerTypeAdapterFactory(Breed.typeAdapterFactory()).
                     registerTypeAdapterFactory(Pet.typeAdapterFactory()).
                     registerTypeAdapterFactory(Media.typeAdapterFactory()).
+                    registerTypeAdapterFactory(Shelter.typeAdapterFactory()).
                     registerTypeAdapterFactory(new BreedsTypeAdapterFactory()).
                     registerTypeAdapterFactory(new MediaTypeAdapterFactory()).
                     registerTypeAdapterFactory(new PetTypeAdapterFactory()).

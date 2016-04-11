@@ -21,8 +21,9 @@ public abstract class Pet {
                              Species species,
                              long serverId,
                              List<Breed> breeds,
-                             List<Media> medias) {
-        return new AutoValue_Pet(name, description, petAge, size, gender, species, serverId, breeds, medias);
+                             List<Media> media,
+                             Shelter shelter) {
+        return new AutoValue_Pet(name, description, petAge, size, gender, species, serverId, breeds, media, shelter);
     }
 
     public static TypeAdapterFactory typeAdapterFactory() {
@@ -40,4 +41,6 @@ public abstract class Pet {
 
     public abstract List<Breed> breeds();
     public abstract List<Media> media();
+
+    @SerializedName("contact") public abstract Shelter shelter();
 }
