@@ -13,8 +13,16 @@ import java.util.List;
 @AutoValue
 public abstract class Pet {
 
-    public static Pet create(String name, String description, Age petAge, Size size, Gender gender, Species species, long serverId, List<Breed> breeds) {
-        return new AutoValue_Pet(name, description, petAge, size, gender, species, serverId, breeds);
+    public static Pet create(String name,
+                             String description,
+                             Age petAge,
+                             Size size,
+                             Gender gender,
+                             Species species,
+                             long serverId,
+                             List<Breed> breeds,
+                             List<Media> medias) {
+        return new AutoValue_Pet(name, description, petAge, size, gender, species, serverId, breeds, medias);
     }
 
     public static TypeAdapterFactory typeAdapterFactory() {
@@ -25,8 +33,11 @@ public abstract class Pet {
     public abstract String description();
     public abstract Age age();
     public abstract Size size();
+
     @SerializedName("sex") public abstract Gender gender();
     @SerializedName("animal") public abstract Species species();
     @SerializedName("id") public abstract long serverId();
+
     public abstract List<Breed> breeds();
+    public abstract List<Media> media();
 }
