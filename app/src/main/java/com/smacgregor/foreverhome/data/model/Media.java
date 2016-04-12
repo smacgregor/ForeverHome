@@ -17,6 +17,6 @@ public abstract class Media {
         return AutoValue_Media.typeAdapterFactory();
     }
 
-    @SerializedName("$t")abstract String url();
-    @SerializedName("@size")abstract String size();
+    @SerializedName("$t") abstract String url();
+    @SerializedName("@size") abstract String size();
 }

@@ -2,15 +2,15 @@ package com.smacgregor.foreverhome.test.common.rules;
 
 import android.content.Context;
 
+import com.smacgregor.foreverhome.ForeverHomeApplication;
+import com.smacgregor.foreverhome.data.DataManager;
+import com.smacgregor.foreverhome.test.common.injection.component.TestComponent;
+import com.smacgregor.foreverhome.test.common.injection.module.ApplicationTestModule;
+import com.smacgregor.foreverhome.test.common.injection.component.DaggerTestComponent;
+
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
-
-import com.smacgregor.foreverhome.ForeverHomeApplication;
-import com.smacgregor.foreverhome.data.DataManager;
-import com.smacgregor.foreverhome.test.common.injection.component.DaggerTestComponent;
-import com.smacgregor.foreverhome.test.common.injection.component.TestComponent;
-import com.smacgregor.foreverhome.test.common.injection.module.ApplicationTestModule;
 
 /**
  * Test rule that creates and sets a Dagger TestComponent into the application overriding the

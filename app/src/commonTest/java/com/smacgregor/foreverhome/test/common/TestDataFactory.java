@@ -21,8 +21,7 @@ public class TestDataFactory {
     }
 
     public static Breed makeBreed(String uniqueSuffix) {
-        //return new Breed.create("Dog" + uniqueSuffix);
-        return null;
+        return Breed.create("Dog" + uniqueSuffix);
     }
 
     public static List<Breed> makeListBreeds(int number) {

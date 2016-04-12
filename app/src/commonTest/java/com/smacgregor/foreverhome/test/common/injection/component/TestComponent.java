@@ -1,10 +1,11 @@
 package com.smacgregor.foreverhome.test.common.injection.component;
 
+import com.smacgregor.foreverhome.injection.component.ApplicationComponent;
+import com.smacgregor.foreverhome.test.common.injection.module.ApplicationTestModule;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
-import com.smacgregor.foreverhome.injection.component.ApplicationComponent;
-import com.smacgregor.foreverhome.test.common.injection.module.ApplicationTestModule;
 
 @Singleton
 @Component(modules = ApplicationTestModule.class)
