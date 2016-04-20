@@ -3,6 +3,7 @@ package com.smacgregor.foreverhome.data.remote;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
@@ -38,6 +39,9 @@ public class StringTypeAdapterFactory implements TypeAdapterFactory {
                     JsonObject jsonObject = jsonElement.getAsJsonObject();
                     if (jsonObject.has(WEIRD_STRING_KEY_NAME) && jsonObject.get(WEIRD_STRING_KEY_NAME).isJsonPrimitive()) {
                         jsonElement = jsonObject.getAsJsonPrimitive(WEIRD_STRING_KEY_NAME);
+                    } else if (jsonObject.entrySet().isEmpty()) {
+                        // The petfinder API is not very clean. Sometimes it returns empty JsonObject's instead of empty strings
+                        jsonElement = new JsonPrimitive("");
                     }
                 }
                 return delegate.fromJsonTree(jsonElement);
